@@ -7,6 +7,5 @@ Try Akshar Vihar Here - https://tejasnerlekar.github.io/Akshar-Vihar/
 
 
 Feel free to reach out for feedback or collaborations!<br>
-
 Email: nerlekarstejas@gmail.com <br>
 Instagram: @tejas.nerlekar
