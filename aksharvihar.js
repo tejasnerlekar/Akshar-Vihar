@@ -155,7 +155,7 @@ function draw() {
       noStroke();
       fill(c);
 
-      let pts = map(sin(TWO_PI * t + i * wd), -1, 1, ptsmin, ptsmax);
+      let pts = map(sin(TWO_PI * t + i * (wd * 0.1)), -1, 1, ptsmin, ptsmax);
       textSize(pts);
       textFont(font);
       textStyle(NORMAL);
