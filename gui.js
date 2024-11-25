@@ -12,7 +12,6 @@ let scripts = [
 ];
 
 let ratios =["1600x900","900x1600","1280x720","720x1280", "1000x1000"];
-//let ratios =["1280x720","720x1280", "1000x1000"];
 let ratio;
 
 let script;
@@ -27,6 +26,7 @@ let gap;
 let xposition;
 let yposition;
 let leading;
+let angle;
 
 //Point Size
 let pts;
@@ -45,11 +45,14 @@ let duration;
 //color
 let backgroundColor;
 let textcolor;
+let backopacity;
+let textopacity;
+
 
 let randomizeButton;
 let exportButton;
 
-let y0 = 320;
+let y0 = 340;
 
 
 function gui() {
@@ -113,7 +116,7 @@ function gui() {
   //ratio
   let ratioLable;
   ratioLable = createElement("h3", "Ratio");
-  ratioLable.position(10, 260);
+  ratioLable.position(10, 280);
   ratioLable.parent('gui');
 
   ratio = createSelect();
@@ -129,7 +132,7 @@ function gui() {
   ///Grid
   let rowsLable;
   rowsLable = createElement("h3", "Rows");
-  rowsLable.position(10, 305);
+  rowsLable.position(10, 325);
   rowsLable.parent('gui');
 
   rows = createSlider(1, 200, 5);
@@ -140,7 +143,7 @@ function gui() {
 
   let columnLable;
   columnLable = createElement("h3", "Column");
-  columnLable.position(10, 335);
+  columnLable.position(10, 355);
   columnLable.parent('gui');
 
   column = createSlider(1, 200, 3);
@@ -151,19 +154,19 @@ function gui() {
 
   let gapLable;
   gapLable = createElement("h3", "Gutter");
-  gapLable.position(10, 365);
+  gapLable.position(10, 385);
   gapLable.parent('gui');
-  gap = createSlider(0, 500, 120);
+  gap = createSlider(-200, 500, 120);
   gap.position(80, y0 + 70);
   gap.size(150);
   gap.class("sliders");
   gap.parent('gui');
 
-  //point size//
+  //point size
 
   let weightLable;
   weightLable = createElement("h3", "Weight");
-  weightLable.position(10, 435);
+  weightLable.position(10, 455);
   weightLable.parent('gui');
 
   weightSlider = createSlider(100, 800, 400);
@@ -174,7 +177,7 @@ function gui() {
 
   let widthLable;
   widthLable = createElement("h3", "Width");
-  widthLable.position(10, 465);
+  widthLable.position(10, 485);
   widthLable.parent('gui');
 
   widthSlider = createSlider(75, 125, 100);
@@ -185,7 +188,7 @@ function gui() {
 
   let ptsminLable;
   ptsminLable = createElement("h3", "Pts-min");
-  ptsminLable.position(10, 495);
+  ptsminLable.position(10, 515);
   ptsminLable.parent('gui');
 
   ptsminimum = createSlider(1, 500, 36);
@@ -196,7 +199,7 @@ function gui() {
 
   let ptsmaxLable;
   ptsmaxLable = createElement("h3", "Pts-min");
-  ptsmaxLable.position(10, 525);
+  ptsmaxLable.position(10, 545);
   ptsmaxLable.parent('gui');
 
   ptsmaximum = createSlider(1, 500, 36);
@@ -209,7 +212,7 @@ function gui() {
 
   let XposLable;
   XposLable = createElement("h3", "X-pos");
-  XposLable.position(10, 595);
+  XposLable.position(10, 615);
   XposLable.parent('gui');
 
   xposition = createSlider(0, 1000, 1);
@@ -220,7 +223,7 @@ function gui() {
 
   let YposLable;
   YposLable = createElement("h3", "Y-pos");
-  YposLable.position(10, 625);
+  YposLable.position(10, 645);
   YposLable.parent('gui');
 
   yposition = createSlider(0, 1000, 20);
@@ -231,7 +234,7 @@ function gui() {
 
   let leadingLable;
   leadingLable = createElement("h3", "Leading");
-  leadingLable.position(10, 655);
+  leadingLable.position(10, 675);
   leadingLable.parent('gui');
 
   leading = createSlider(0, 500, 100);
@@ -239,36 +242,48 @@ function gui() {
   leading.size(150);
   leading.class("sliders");
   leading.parent('gui');
+  
+  
+  let angleLable;
+  angleLable = createElement("h3", "Rotate");
+  angleLable.position(10, 705);
+  angleLable.parent('gui');
+
+  angle = createSlider(0, 70, 0);
+  angle.position(80, y0 + 390);
+  angle.size(150);
+  angle.class("sliders");
+  angle.parent('gui');
 
   let wavedistLable;
   wavedistLable = createElement("h3", "Offset");
-  wavedistLable.position(10, 685);
+  wavedistLable.position(10, 735);
   wavedistLable.parent('gui');
 
   wavedist = createSlider(0, 100, 10);
-  wavedist.position(80, y0 + 390);
+  wavedist.position(80, y0 + 420);
   wavedist.size(150);
   wavedist.class("sliders");
   wavedist.parent('gui');
 
   let displaceLable;
   displaceLable = createElement("h3", "Displace");
-  displaceLable.position(10, 715);
+  displaceLable.position(10, 765);
   displaceLable.parent('gui');
 
   displace = createSlider(0, 100, 5);
-  displace.position(80, y0 + 420);
+  displace.position(80, y0 + 450);
   displace.size(150);
   displace.class("sliders");
   displace.parent('gui');
 
   let durationLable;
   durationLable = createElement("h3", "Duration");
-  durationLable.position(10, 745);
+  durationLable.position(10, 795);
   durationLable.parent('gui');
 
-  duration = createSlider(6, 120, 12);
-  duration.position(80, y0 + 450);
+  duration = createSlider(6, 240, 12);
+  duration.position(80, y0 + 480);
   duration.size(150);
   duration.class("sliders");
   duration.parent('gui');
@@ -277,29 +292,53 @@ function gui() {
 
   let bgcolorLable;
   bgcolorLable = createElement("h3", "Background");
-  bgcolorLable.position(10, 825);
+  bgcolorLable.position(10, 865);
   bgcolorLable.parent('gui');
 
   backgroundColor = createColorPicker("#000000");
-  backgroundColor.position(125, y0 + 520);
+  backgroundColor.position(125, y0 + 540);
   backgroundColor.size(100, 25);
   backgroundColor.class("select");
   backgroundColor.parent('gui');
+  
+  
+  let backopacityLable;
+  backopacityLable = createElement("h3", "Opacity");
+  backopacityLable.position(10, 895);
+  backopacityLable.parent('gui');
+  
+  backopacity = createSlider(0, 255, 255);
+  backopacity.position(80, y0 + 580);
+  backopacity.size(150);
+  backopacity.class("sliders");
+  backopacity.parent('gui');
 
   let txtcolorLable;
   txtcolorLable = createElement("h3", "Text Fill");
-  txtcolorLable.position(10, 855);
+  txtcolorLable.position(10, 945);
   txtcolorLable.parent('gui');
 
   textcolor = createColorPicker("#ffffff");
-  textcolor.position(125, y0 + 550);
+  textcolor.position(125, y0 + 620);
   textcolor.size(100, 25);
   textcolor.class("select");
   textcolor.parent('gui');
+  
+  
+  let textopacityLable;
+  textopacityLable = createElement("h3", "Opacity");
+  textopacityLable.position(10, 975);
+  textopacityLable.parent('gui');
+  
+  textopacity = createSlider(0, 255, 255);
+  textopacity.position(80, y0 + 660);
+  textopacity.size(150);
+  textopacity.class("sliders");
+  textopacity.parent('gui');
 
   //randomise
   randomizeButton = createElement("button", "Randomize");
-  randomizeButton.position(40, y0 + 640);
+  randomizeButton.position(40, y0 + 720);
   randomizeButton.size(150, 30);
   randomizeButton.mousePressed(randomizeValues);
   randomizeButton.style("cursor", "pointer");
@@ -308,7 +347,7 @@ function gui() {
   //randomizeButton.class ('sliders');
 
   exportButton = createElement("button", "Export gif");
-  exportButton.position(40, y0 + 680);
+  exportButton.position(40, y0 + 760);
   exportButton.size(150, 30);
   exportButton.mousePressed(exportGif);
   exportButton.style("cursor", "pointer");
@@ -316,7 +355,7 @@ function gui() {
 
   //line
   let lineElement2 = createElement("div");
-  lineElement2.position(0, 1060);
+  lineElement2.position(0, 1160);
   lineElement2.style("width", "270px");
   lineElement2.style("height", "1px");
   lineElement2.style("background-color", "grey");
@@ -327,11 +366,25 @@ function gui() {
     "h4",
     "Font: Anek Variable by Ektype <br>Built with: p5.js <br>Development Support: ChatGPT by OpenAI<br> Design & Development: Tejas Nerlekar"
   );
-  creditsLable.position(10, 1060);
+  creditsLable.position(10, 1160);
   creditsLable.parent('gui');
-  creditsLable.style ('padding-bottom', '10px');
 }
 
+function randomizeValues() {
+  rows.value(floor(random(1, 101)));
+  column.value(floor(random(1, 101)));
+  gap.value(floor(random(-200, 501)));
+  ptsminimum.value(floor(random(1, 501)));
+  ptsmaximum.value(floor(random(1, 501)));
+  xposition.value(floor(random(0, 501)));
+  yposition.value(floor(random(0, 501)));
+  leading.value(floor(random(0, 501)));
+  wavedist.value(floor(random(0, 101)));
+  displace.value(floor(random(1, 101)));
+  duration.value(floor(random(6, 144)));
+  weightSlider.value(floor(random(100, 800)));
+  widthSlider.value(floor(random(75, 125)));
+    }
 
 function repositionProgressBar() {
   setTimeout(() => {

@@ -1,6 +1,7 @@
 //Tejas Nerlekar(@tejas.nerlekar)
 //"Akshar Vihar" is a typography tool for Indian scripts, offering customizable layouts and wave effects for playful and creative text generation. Let’s have fun with wavy, loopy letters
 
+
 let font;
 let cnv;
 
@@ -16,45 +17,35 @@ let odiaFont = "Anek Odia";
 let tamilFont = "Anek Tamil";
 let teluguFont = "Anek Telugu";
 
+
 let w = 1920;
 let h = 1080;
 
 let loopDuration;
 
+
 function setup() {
   frameRate(24);
-
+  
   pixelDensity(1);
   gui();
-
+  
   cnv = createCanvas(w, h);
   cnv.position(displayWidth / 2 + 120 - width / 2, 80);
+ 
 }
 
-function randomizeValues() {
-  rows.value(floor(random(1, 101)));
-  column.value(floor(random(1, 101)));
-  gap.value(floor(random(-100, 301)));
-  ptsminimum.value(floor(random(1, 501)));
-  ptsmaximum.value(floor(random(1, 501)));
-  xposition.value(floor(random(0, 501)));
-  yposition.value(floor(random(0, 501)));
-  leading.value(floor(random(0, 501)));
-  wavedist.value(floor(random(0, 101)));
-  displace.value(floor(random(1, 101)));
-  duration.value(floor(random(6, 144)));
-  weightSlider.value(floor(random(100, 800)));
-  widthSlider.value(floor(random(75, 125)));
-}
+
 
 function draw() {
   loopDuration = duration.value();
-  let t = (frameCount % loopDuration) / loopDuration;
-
+  let t = (frameCount%loopDuration) / loopDuration;
+  
   ///getting values
   let x = xposition.value();
   let y = yposition.value();
   let l = leading.value();
+  let ang = angle.value();
 
   let ptsmin = ptsminimum.value();
   let ptsmax = ptsmaximum.value();
@@ -70,12 +61,16 @@ function draw() {
   word = textInput.value();
 
   let bg = backgroundColor.value();
+  let bgalpha = backopacity.value();
   let c = textcolor.value();
+  let textalpha = textopacity.value();
+  
 
   let weightValue = weightSlider.value();
   let widthValue = widthSlider.value();
   let ar = ratio.value();
-
+  
+  
   ///Ratio change
   switch (ar) {
     case "1600x900":
@@ -93,19 +88,19 @@ function draw() {
     case "720x1280":
       w = 720;
       h = 1280;
-      break;
+      break;  
     case "1000x1000":
       w = 1000;
       h = 1000;
       break;
   }
-
+  
   if (width !== w || height !== h) {
     resizeCanvas(w, h);
-    cnv.position(displayWidth / 2 + 120 - w / 2, 80);
+    cnv.position(displayWidth / 2 + 120 - w / 2, 80); 
   }
 
-  ///script change
+  //script change
   switch (sc) {
     case "Bangla":
       font = banglaFont;
@@ -140,51 +135,74 @@ function draw() {
     default:
       font = devanagariFont;
   }
-
-  /////The Artwork
-  background(bg);
-
+  
+  //The Artwork
+  
+  backColor = color(
+    red(bg),
+    green(bg),
+    blue(bg),
+    bgalpha
+  );
+  background(backColor);
+  
   let textWidthValue = textWidth(word);
   let totalTextWidth = (textWidthValue + g) * col - g;
   let startX = (w - totalTextWidth) / 2;
-
+  
+  
   let startY = h / 2 - ((r - 1) * l) / 2;
 
+ 
   for (let j = 0; j < col; j++) {
     for (let i = 0; i < r; i++) {
       noStroke();
-      fill(c);
+      
+      let textColor = color(
+    red(c),
+    green(c),
+    blue(c),
+    textalpha
+  );
+      fill(textColor);
 
       let pts = map(sin(TWO_PI * t + i * (wd * 0.1)), -1, 1, ptsmin, ptsmax);
       textSize(pts);
       textFont(font);
+      
+
       textStyle(NORMAL);
       let textElement = select("canvas");
       textElement.style(
         "font-variation-settings",
         `'wght' ${weightValue}, 'wdth' ${widthValue}`
       );
-
-      wave = x * sin(TWO_PI * t + i * d);
-      wave2 = y * sin(TWO_PI * t + i * d);
-
-      text(
-        word,
-        startX + j * (textWidth(word) + g) + wave,
-        startY + i * l + wave2
-      );
+        wave = x * sin(TWO_PI * t + i * d);
+       wave2 = y * sin(TWO_PI * t + i * d);
+  
+      
+      let xpos = startX + j * (textWidth(word) + g) + wave;
+      let ypos = startY + i * l + wave2;
+       push()
+      translate (xpos, ypos);
+      rotate(ang * 0.1);
+      text(word,0,0);
+      pop();
     }
+    
   }
 }
 
 function exportGif() {
+    
   const option = {
-    units: "frames",
-    delay: 0,
+    units:"frames",
+    delay : 0,
     silent: false,
-    notificationID: "saveGifResult",
-  };
-  saveGif("AksharVihar_Loop", loopDuration, option);
+    notificationID : "saveGifResult"
+    }
+    saveGif("AksharVihar_Loop", loopDuration, option);
+    
+    repositionProgressBar();
+  }
 
-  repositionProgressBar();
-}
